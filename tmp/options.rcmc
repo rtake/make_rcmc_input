@@ -1,0 +1,12 @@
+GRRMroot=/home/rtake/GRRMdv9b22/
+KeepIntfiles
+DetailedOutput=ON
+GauProc=1
+GauMem=1000
+DownDC=50
+DownDC-small=6
+RCMCOnly
+TrafficVolCheck
+ReClustering
+MatchDecScale=1
+StructCheckThreshold=6.0 0.03 0.06

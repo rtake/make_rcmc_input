@@ -2,14 +2,27 @@
 using namespace std;
 
 int main(int argc, char *argv[]) {
-  char line[256];
-
+  char line[256],buf[256];
+  FILE *fpout, *fpin;
   vector<string> inptmp;
+  vector<string> siml_temperature;
+  vector<string> timescale;
 
-  vector<string> siml_temperature = {"500","5000","50000"};
-  vector<string> timescale = {"1","1e+1","1e+2","1e+3","1e+4","1e+5","1e+6","1e+7","1e+8","1e+9","1e+10","1e+11","1e+12","1e+13","1e+14","1e+15","1e+16","1e-1","1e-2","1e-3","1e-4","1e-5","1e-6","1e-7","1e-8","1e-9","1e-10","1e-11","1e-12","1e-13","1e-14","1e-15","1e-16"};
-  string com(argv[1]), rcmc("rcmcinp"), simliniteqs;
-  FILE *fpout=stdout, *fpin;
+  fpin = fopen("temperature.rcmc","r");
+  while( fgets(line,256,fpin) ) {
+    sscanf(line,"%s",buf);
+    siml_temperature.push_back(buf);
+  }
+  fclose(fpin);
+
+  fpin = fopen("timescale.rcmc","r");
+  while( fgets(line,256,fpin) ) {
+    sscanf(line,"%s",buf);
+    timescale.push_back(buf);
+  }
+  fclose(fpin);
+
+  string com(argv[1]);
 
   com += ".com"; // cout << com;
   fpin = fopen(com.c_str(),"r");
@@ -40,7 +53,7 @@ int main(int argc, char *argv[]) {
 
   fclose(fpin);
 
-  fpin = fopen(rcmc.c_str(),"r");
+  fpin = fopen("options.rcmc","r");
   while( fgets(line,256,fpin) ) {
     inptmp.push_back(line); // fprintf(fpout,"%s",line);
   }
